@@ -8,6 +8,7 @@ static void data_init(t_fractal *fract)
     fract->shift_b = 0.0;
     fract->zoom = 1.0;
 }
+
 static void events_init(t_fractal *fract)
 {
     mlx_hook(fract->mlx_ptr, KeyPress, KeyPressMask, keyHandler, fract);

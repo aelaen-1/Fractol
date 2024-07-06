@@ -1,4 +1,4 @@
-NAME	= fractol
+ NAME	= fractol
 OS		= $(shell uname)
 
 SRCDIR	= ./src
@@ -15,9 +15,12 @@ LIBFT_PATH	= include/libft/
 LIBFT_NAME	= libft.a
 LIBFT		= $(LIBFT_PATH)libft.a
 
-SRC		= fractol.c \
-		  init.c \
-		  events.c \
+SRC		= 	fractolmain.c \
+		  	init.c \
+		 	events.c \
+			utils/atodouble.c \
+			utils/error.c \
+			utils/math.c 
 		  
 CCFLAGS = cc -Wall -Wextra -Werror
 
