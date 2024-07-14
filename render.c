@@ -1,5 +1,4 @@
-#include "./include/fractol.h"
-
+#include "fractol.h"
 
 void is_mandel(t_complex *z, t_complex *c, t_fractal *fract)
 {
@@ -29,8 +28,8 @@ void   printpixel(int a, int b,  t_fractal *fract)
     int color; 
 
     i = 0; 
-    z.a = resize_window(-2, 2, 0, WIDTH, a);
-    z.b = resize_window(-2, 2, 0, HEIGHT, b);
+    z.a = scale(-2, 2, 0, WIDTH, a);
+    z.b = scale(-2, 2, 0, HEIGHT, b);
 
     is_mandel(&z, &c, &fract);
 
@@ -39,7 +38,7 @@ void   printpixel(int a, int b,  t_fractal *fract)
         z = sum_complex(multiply_complex(z, z), c);
         if((z.a * z.a + z.b * z.b) <= 4)
         {
-            color = resize_window(0, fract->iter, BLACK, WHITE, i);
+            color = scale(0, fract->iter, BLACK, WHITE, i);
             pixel_color();
         }
         else

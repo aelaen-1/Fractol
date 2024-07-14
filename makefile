@@ -1,70 +1,50 @@
- NAME	= fractol
-OS		= $(shell uname)
-
-SRCDIR	= ./src
-INCDIR	= ./include
-LIBFT   = ./libft
-
-# Minilibx
-MLX_PATH	= include/minilibx/
-MLX_NAME	= libmlx.a
-MLX		=   $(MLX_PATH)libmlx.a
+NAME	= fractol
+# MLX
+INC=/usr/include
+INCLIB=$(INC)/../lib
+MLX_PATH	= ./minilibx-linux
+MLX_LIB := -L$(MLX_PATH) -lmlx
 
 # Libft
-LIBFT_PATH	= include/libft/
-LIBFT_NAME	= libft.a
-LIBFT		= $(LIBFT_PATH)libft.a
+LIBFT_PATH	= libft/
+LIBFT_MAKE := $(MAKE) -C $(LIBFT_PATH)
+LIBFT_LIB := -L./libft -lft
 
-SRC		= 	fractolmain.c \
-		  	init.c \
-		 	events.c \
-			utils/atodouble.c \
-			utils/error.c \
-			utils/math.c 
+SRC		= fractolmain.c \
+		  init.c \
+		  events.c \
+		  render.c \
+		  math.c \
+		  error.c  \
+		  atodouble.c
 		  
-CCFLAGS = cc -Wall -Wextra -Werror
+OBJ   := $(SRC:.c=.o)
+DEPS  := ${SRC:.c=.d}
 
-OBJ_PATH	= obj/
-OBJ			= $(SRC:.c=.o)
-OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
+CCFLAGS = gcc -Wall -Wextra -Werror
 
-all: $(MLX) $(LIBFT) $(NAME)
 
-$(OBJ_PATH)%.o: $(SRC)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+all: ${NAME}
 
-$(OBJS): $(OBJ_PATH)
+%.o: %.c 
+	@$(CCFLAGS) -MMD -MP -MF $(<:.c=.d)  -c $< -o $@ 
 
-$(OBJ_PATH):
-	@mkdir $(OBJ_PATH)
-	@mkdir $(OBJ_PATH)fractal_sets/
-	@mkdir $(OBJ_PATH)color_schemes/
+$(MLX_PATH):
+	git clone https://github.com/42Paris/minilibx-linux.git $(MLX_PATH)
+	@make -C $(MLX_PATH)
 
-$(MLX):
-	@echo "Making MiniLibX..."
-	@make -sC $(MLX_PATH)
-
-$(LIBFT):
-	@echo "Making libft..."
-	@make -sC $(LIBFT_PATH)
-
-$(NAME): $(OBJS)
-	@echo "Compiling fractol..."
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX) $(LIBFT) $(INC) -lXext -lX11 -lm
-	@echo "Fractol ready."
-
-bonus: all
+-include $(DEPS)
+$(NAME): $(MLX_PATH) $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) $(LIBFT_LIB) $(MLX_LIB) -L$(INCLIB) -lXext -lX11 -lm -lbsd
 
 clean:
-	@echo "Removing .o object files..."
-	@rm -rf $(OBJ_PATH)
-	@make clean -C $(MLX_PATH)
-	@make clean -C $(LIBFT_PATH)
+	$(LIBFT_MAKE) clean
+	${RM} ${OBJ}
+	${RM} ${DEPS}
 
 fclean: clean
-	@echo "Removing fractol..."
-	@rm -f $(NAME)
-	@rm -f $(LIBFT_PATH)$(LIBFT_NAME)
+	$(LIBFT_MAKE) fclean
+	${RM} ${NAME}
 
 re: fclean all
 
