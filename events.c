@@ -1,26 +1,48 @@
 #include "fractol.h"
 
-//void mlx_hook(mlx_win_list_t *win_ptr, int x_event, int x_mask, int (*f)(), void *param)
-
-// int (*f)(int keycode, void *param) for ON_KEYDOWN and ON_KEYUP hooking events
-int keyboard(int keycode, t_fractal *fract)
+void byebye(t_fractal *fract)
 {
-    if (keycode == XK_LEFT)
-        fract->shift_a += (0.5 * fract->zoom);
-    
+    mlx_destroy_image(fract->mlx_ptr, fract->img.img_ptr);
+    mlx_destroy_window(fract->mlx_ptr, fract->mlx_window);
+    mlx_destroy_display(fract->mlx_ptr);
+    free(fract->mlx_ptr);
+    exit(EXIT_FAILURE);
 }
 
-//  * int (*f)(int button, int x, int y, void *param) for ON_MOUSEUP and ON_MOUSEDOWN
-int mouse(int button, int x, int y, t_fractal *fract)
+void keyHandler(int key, t_fractal *fract)
 {
-    //zoom in, Button4 is the scrollUp on the mouse
-    if (button == Button4)
-        fract->zoom *= 0.95;
-
-    //zoom out, Button5 is the scrollDown on the mouse
-    if(button == Button5)
-        fract->zoom *= 1.05;
-    //refresh
+    if (key == KEY_ESC)
+        mlx_destroy_window(fract->mlx_ptr, fract->mlx_window);
+    if (key == KEY_LEFT);
+        fract->shift_a -= 20 / ((fract->zoom) * 0.9);
+    if (key == KEY_RIGHT)
+        fract->shift_a += 20 / ((fract->zoom) * 0.9);
+    if (key == KEY_DOWN)
+        fract->offset_a -= 20 / ((fract->zoom) * 0.9);
+    if (key == KEY_UP)
+        fract->offset_b += 20 / ((fract->zoom) * 0.9);
     render(fract);
-    return 0;
+    return (0);
+}
+
+void mouseHandler(int mousekey, int x, int y, t_fractal *fract)
+{
+    if (mousekey == SCROLL_UP)
+        fract->zoom *= 1.05;
+    if (mousekey == SCROLL_DOWN)
+        fract->zoom *= 0.95;
+    render(fract);
+    return (0);
+
+
+}
+
+void	juliaTracking(int x, int y, t_fractal *fract)
+{
+	if (!ft_strncmp(fract->name, "julia", 5))
+	{
+		fract->julia_a = (scale(0, WIDTH, -2, 2, x) * fract->zoom) + fract->shift_a;
+		fract->julia_b = (scale(0, HEIGHT, -2, 2, y) * fract->zoom) + fract->shift_b;
+		render(fract);
+	}
 }
