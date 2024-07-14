@@ -90,10 +90,10 @@ typedef struct s_fractal
 
 } t_fractal;
 
-void keyHandler(int keysym, t_fractal *fract);
-void mouseHandler(int mousekey, int x, int y, t_fractal *fract);
-void juliaTracking(int x, int y, t_fractal *fract);
-void byebye(t_fractal *fract);
+int keyHandler(int keysym, t_fractal *fract);
+int mouseHandler(int mousekey, t_fractal *fract);
+int juliaTracking(int x, int y, t_fractal *fract);
+int byebye(t_fractal *fract);
 void    init(t_fractal *fract);
 
 void is_mandel(t_complex *z, t_complex *c, t_fractal *fract);
@@ -101,8 +101,8 @@ void printpixel(int a, int b,  t_fractal *fract);
 void render(t_fractal *fract);
 
 double atodouble(char *s);
-void error();
 int scale(int a, int b, int min, int max, int x);
+void error();
 
 t_complex multiply_complex(t_complex z1, t_complex z2);
 t_complex sum_complex(t_complex z1, t_complex z2);

@@ -5,7 +5,7 @@ long int skip_and_sign(char *s, int *sign)
     long int i; 
 
     i = 0; 
-    while (s[i] >= 9 && s[i] <= 13 || s[i] == 32)
+    while ((s[i] >= 9 && s[i] <= 13) || s[i] == 32)
         i++;
     if (s[i] == '+' || s[i] == '-')
     {

@@ -6,16 +6,15 @@ MLX_PATH	= ./minilibx-linux
 MLX_LIB := -L$(MLX_PATH) -lmlx
 
 # Libft
-LIBFT_PATH	= libft/
+LIBFT_PATH := libft
 LIBFT_MAKE := $(MAKE) -C $(LIBFT_PATH)
 LIBFT_LIB := -L./libft -lft
 
-SRC		= fractolmain.c \
+SRC		= main.c \
 		  init.c \
 		  events.c \
 		  render.c \
 		  math.c \
-		  error.c  \
 		  atodouble.c
 		  
 OBJ   := $(SRC:.c=.o)
@@ -35,6 +34,7 @@ $(MLX_PATH):
 
 -include $(DEPS)
 $(NAME): $(MLX_PATH) $(OBJ)
+	$(MAKE) -sC $(LIBFT_PATH)
 	$(CC) -o $(NAME) $(OBJ) $(LIBFT_LIB) $(MLX_LIB) -L$(INCLIB) -lXext -lX11 -lm -lbsd
 
 clean:
