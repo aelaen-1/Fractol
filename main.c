@@ -11,28 +11,25 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "libft/libft.h"
 
 int main(int ac, char **av)
 {
-    t_fractal      fract; 
+    t_fractal fract;
 
-    if ((ac == 2 && ft_strncmp(av[1], "mandelbrot", 1) == 0) 
-    || (ac == 4 && ft_strncmp(av[1], "julia", 5) == 0))
+    if ((ac == 4 && !ft_strncmp(av[1], "julia", 5)) 
+    || (ac == 2 && !ft_strncmp(av[1], "mandelbrot", 10)))
     {
-        fract.name = av[1];
-        if(ft_strncmp(fract.name, "julia", 5) == 0)
+        fract.name = av[1]; 
+        if (ac == 4)
         {
-            fract.julia_a = atof(av[2]);
-            fract.julia_b = atof(av[3]);
+            fract.julia_a = atodouble(av[2]);
+            fract.julia_b = atodouble(av[3]);
         }
         init(&fract);
         render(&fract);
+        mlx_loop(fract.mlx_ptr);
     }
     else
-    {
-        ft_putstr_fd(ERROR_MSG, STDERR_FILENO);
-        exit(EXIT_FAILURE);
-    }
-    return (0);
+        error();
+    return (0); 
 }
