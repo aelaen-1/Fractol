@@ -15,7 +15,7 @@ int main(int ac, char **av)
 		}
 		init(&fract);
 		render(&fract);
-		mlx_loop(fract.mlx_ptr);
+		mlx_loop(&fract.mlx_ptr);
 	}
 	else
 		error();
