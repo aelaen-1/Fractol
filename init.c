@@ -3,7 +3,7 @@
 static void data_init(t_fractal *fract)
 {
     fract->escape_value = 4; 
-    fract->iter = 60;
+    fract->iter = 400;
     fract->shift_a = 0.0;
     fract->shift_b = 0.0;
     fract->zoom = 1.0;
@@ -23,9 +23,7 @@ void    init(t_fractal *fract)
     if (fract == NULL)
         error();
     fract->mlx_window = mlx_new_window(fract->mlx_ptr,
-                                            WIDTH, 
-                                            HEIGHT, 
-                                        fract->name);
+                                    WIDTH, HEIGHT, fract->name);
     if (fract->mlx_window == NULL)
     {
         mlx_destroy_display(fract->mlx_ptr);
@@ -42,8 +40,8 @@ void    init(t_fractal *fract)
     }
     fract->img.pxl_ptr = mlx_get_data_addr(fract->img.img_ptr,
                                                 &fract->img.bpp,
-                                                &fract->img.size_line,
+                                                &fract->img.line_len, //corr
                                                 &fract->img.endian);
+    data_init(fract);                                            
     events_init(fract);
-    data_init(fract);
 }

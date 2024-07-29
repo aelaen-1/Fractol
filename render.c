@@ -1,5 +1,13 @@
 #include "fractol.h"
 
+static void pixel_put(int a, int b, t_image *img, int color)
+{
+    int offset;
+
+    offset = (b * img->img_ptr) + (a * (img->bpp / 8));
+    (unsigned int *)(img->pxl_ptr + offset) = color;
+}
+
 void is_mandel(t_complex *z, t_complex *c, t_fractal *fract)
 {
 
@@ -15,7 +23,7 @@ void is_mandel(t_complex *z, t_complex *c, t_fractal *fract)
     }
 }
 
-void   printpixel(int a, int b,  t_fractal *fract)
+void    printpixel(int a, int b,  t_fractal *fract)
 {
     t_complex z;
     t_complex c;
@@ -31,18 +39,14 @@ void   printpixel(int a, int b,  t_fractal *fract)
     while (i < fract->iter)
     {
         z = sum_complex(multiply_complex(z, z), c);
-        if((z.a * z.a + z.b * z.b) >= fract->escape_value)
+        if((z.a * z.a + z.b * z.b) > fract->escape_value)
         {
             color = scale(0, fract->iter, BLACK, WHITE, i);
-            mlx_pixel_put(fract->mlx_ptr, fract->mlx_window, a, b, color);
+            pixel_put(a, b, &fract->img, color);//try with mlx_   pixel_put(fract->mlx_ptr, fract->mlx_window, a, b, color)
             return ;
         }
         i++;
     }
-
-    
-
-    
 }
 
 void render(t_fractal *fract)
@@ -52,9 +56,9 @@ void render(t_fractal *fract)
 
     a = 0; 
     b = 0; 
-    while (b <= HEIGHT)
+    while (b < HEIGHT)
     {
-        while (a <= WIDTH)
+        while (a < WIDTH)
         {
             printpixel(a, b, fract);
             a++;
