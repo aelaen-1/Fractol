@@ -9,14 +9,14 @@ static void data_init(t_fractal *fract)
     fract->zoom = 1.0;
 }
 
-static void events_init(t_fractal *fract)
+/*static void events_init(t_fractal *fract)
 {
     mlx_hook(fract->mlx_ptr, KeyPress, KeyPressMask, keyHandler, fract);
     mlx_hook(fract->mlx_ptr, ButtonPress, ButtonPressMask, mouseHandler, fract);
     mlx_hook(fract->mlx_ptr, MotionNotify, PointerMotionMask, juliaTracking, fract);
-    mlx_hook(fract->mlx_ptr, DestroyNotify, StructureNotifyMask, byebye, fract);
+    mlx_hook(fract->mlx_ptr, DestroyNotify , StructureNotifyMask, byebye, fract);
 }
-
+*/
 void    init(t_fractal *fract)
 {
     fract->mlx_ptr = mlx_init();
@@ -43,5 +43,5 @@ void    init(t_fractal *fract)
                                                 &fract->img.size_line,
                                                 &fract->img.endian);
     data_init(fract);                                            
-    events_init(fract);
+    //events_init(fract);
 }

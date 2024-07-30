@@ -4,8 +4,8 @@ static void pixel_put(int a, int b, t_image *img, int color)
 {
     int offset;
 
-    offset = (b * img->img_ptr) + (a * (img->bpp / 8));
-    (unsigned int *)(img->pxl_ptr + offset) = color;
+    offset = (b * img->size_line) + (a * (img->bpp / 8));
+    *(unsigned int *)(img->pxl_ptr + offset) = color;
 }
 
 void is_mandel(t_complex *z, t_complex *c, t_fractal *fract)
