@@ -78,8 +78,6 @@ typedef struct s_fractal
 
     double shift_a; 
     double shift_b;
-    double offset_a;
-    double offset_b;
     double zoom; 
     double escape_value;
     double iter;
