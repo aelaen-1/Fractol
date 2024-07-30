@@ -47,7 +47,7 @@ void    printpixel(int a, int b,  t_fractal *fract)
         }
         i++;
     }
-    pixel_put(a, b, &fractal->img, WHITE);
+    pixel_put(a, b, &fract->img, WHITE);
 }
 
 void render(t_fractal *fract)
