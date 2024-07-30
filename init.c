@@ -40,7 +40,7 @@ void    init(t_fractal *fract)
     }
     fract->img.pxl_ptr = mlx_get_data_addr(fract->img.img_ptr,
                                                 &fract->img.bpp,
-                                                &fract->img.line_len, //corr
+                                                &fract->img.size_line,
                                                 &fract->img.endian);
     data_init(fract);                                            
     events_init(fract);
