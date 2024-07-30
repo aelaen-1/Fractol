@@ -19,9 +19,9 @@ int keyHandler(int key, t_fractal *fract)
     if (key == KEY_RIGHT)
         fract->shift_a += 20 / ((fract->zoom) * 0.9);
     if (key == KEY_DOWN)
-        fract->offset_a -= 20 / ((fract->zoom) * 0.9);
+        fract->shift_b -= 20 / ((fract->zoom) * 0.9);
     if (key == KEY_UP)
-        fract->offset_b += 20 / ((fract->zoom) * 0.9);
+        fract->shift_b += 20 / ((fract->zoom) * 0.9);
     render(fract);
     return (0);
 }
