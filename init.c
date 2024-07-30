@@ -20,7 +20,7 @@ static void data_init(t_fractal *fract)
 void    init(t_fractal *fract)
 {
     fract->mlx_ptr = mlx_init();
-    if (fract->mlx_ptr == NULL)
+    if (fract->mlx_ptr == NULL) // corr fract == NULL
         error();
     fract->mlx_window = mlx_new_window(fract->mlx_ptr,
                                     WIDTH, HEIGHT, fract->name);
