@@ -23,7 +23,7 @@ void is_mandel(t_complex *z, t_complex *c, t_fractal *fract)
     }
 }
 
-void    printpixel(int a, int b,  t_fractal *fract)
+/* void    printpixel(int a, int b,  t_fractal *fract)
 {
     t_complex z;
     t_complex c;
@@ -48,6 +48,35 @@ void    printpixel(int a, int b,  t_fractal *fract)
         i++;
     }
     pixel_put(a, b, &fract->img, WHITE);
+} */
+
+static void	print_pixel(int a, int b, t_fract *fractal)
+{
+	t_complex	z;
+	t_complex	c;
+	int			i;
+	int			color;
+
+	i = 0;
+	z.x = scale(x, -2, +2, 0, WIDTH);
+	z.y = scale(y, +2, -2, 0, HEIGHT);
+
+
+	mandel_vs_julia(&z, &c, fractal);
+
+	while (i < fractal->iterations_defintion)
+	{
+		z = sum_complex(square_complex(z), c);
+		
+		if ((z.x * z.x) + (z.y * z.y) > fractal->escape_value)
+		{
+			color = map(i, BLACK, WHITE, 0, fractal->iterations_defintion);
+			my_pixel_put(x, y, &fractal->img, color);
+			return ;
+		}
+		++i;	
+	}
+	my_pixel_put(x, y, &fractal->img, WHITE);
 }
 
 void render(t_fractal *fract)
