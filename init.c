@@ -3,7 +3,7 @@
 static void data_init(t_fractal *fract)
 {
     fract->escape_value = 4; 
-    fract->iter = 400;
+    fract->iter = 42;
     fract->shift_a = 0.0;
     fract->shift_b = 0.0;
     fract->zoom = 1.0;

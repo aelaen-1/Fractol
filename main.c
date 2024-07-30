@@ -10,8 +10,8 @@ int main(int ac, char **av)
 		fract.name = av[1];
 		if (ac == 4)
 		{
-			fract.julia_a = atodouble(av[2]);
-			fract.julia_b = atodouble(av[3]);
+			fract.julia_a = atodbl(av[2]);
+			fract.julia_b = atodbl(av[3]);
 		}
 		init(&fract);
 		render(&fract);

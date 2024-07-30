@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-int    scale(int a, int b, int min, int max, int x)
+double    scale(double a, double b, double min, double max, double x)
 {
     return(a + (b - a) * (x - min)/(max - min));
 }

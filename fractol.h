@@ -99,7 +99,8 @@ void printpixel(int a, int b,  t_fractal *fract);
 void render(t_fractal *fract);
 
 double atodouble(char *s);
-double scale(int a, int b, int min, int max, int x);
+double	atodbl(char *s);
+double    scale(double a, double b, double min, double max, double x);
 void error();
 
 t_complex multiply_complex(t_complex z1, t_complex z2);
