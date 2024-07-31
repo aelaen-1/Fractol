@@ -53,11 +53,11 @@ void render(t_fractal *fract)
 {
     int a; 
     int b; 
-
-    a = 0; 
+    
     b = 0; 
     while (b < HEIGHT)
     {
+        a = 0;
         while (a < WIDTH)
         {
             printpixel(a, b, fract);
