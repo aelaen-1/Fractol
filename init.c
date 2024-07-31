@@ -3,20 +3,20 @@
 static void data_init(t_fractal *fract)
 {
     fract->escape_value = 4; 
-    fract->iter = 42;
+    fract->iter = 200;
     fract->shift_a = 0.0;
     fract->shift_b = 0.0;
     fract->zoom = 1.0;
 }
 
-/*static void events_init(t_fractal *fract)
-{
-    mlx_hook(fract->mlx_ptr, KeyPress, KeyPressMask, keyHandler, fract);
-    mlx_hook(fract->mlx_ptr, ButtonPress, ButtonPressMask, mouseHandler, fract);
-    mlx_hook(fract->mlx_ptr, MotionNotify, PointerMotionMask, juliaTracking, fract);
-    mlx_hook(fract->mlx_ptr, DestroyNotify , StructureNotifyMask, byebye, fract);
-}
-*/
+//static void events_init(t_fractal *fract)
+//{
+  //  mlx_hook(fract->mlx_ptr, KeyPress, KeyPressMask, keyHandler, fract);
+ //   mlx_hook(fract->mlx_ptr, ButtonPress, ButtonPressMask, mouseHandler, fract);
+  //  mlx_hook(fract->mlx_ptr, MotionNotify, PointerMotionMask, juliaTracking, fract);*/
+//mlx_hook(fract->mlx_ptr, DestroyNotify , StructureNotifyMask, byebye, fract); 
+//}
+
 void    init(t_fractal *fract)
 {
     fract->mlx_ptr = mlx_init();

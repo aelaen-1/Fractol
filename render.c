@@ -41,11 +41,13 @@ static void    printpixel(int a, int b,  t_fractal *fract)
         if((z.a * z.a) + (z.b * z.b) > fract->escape_value)
         {
             color = scale(BLACK, WHITE, 0, fract->iter, i);
-            pixel_put(a, b, &fract->img, color);//try with mlx_   pixel_put(fract->mlx_ptr, fract->mlx_window, a, b, color)
+            //mlx_pixel_put(fract->mlx_ptr, fract->mlx_window, a, b, color);
+            pixel_put(a, b, &fract->img, color);
             return ;
         }
         i++;
     }
+    //mlx_pixel_put(fract->mlx_ptr, fract->mlx_window, a, b, WHITE);
     pixel_put(a, b, &fract->img, WHITE);
 }
 

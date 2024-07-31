@@ -12,6 +12,7 @@
 # include "./minilibx-linux/mlx.h"
 # include "./libft/libft.h"
 # include <X11/X.h>
+# include <X11/keysym.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -92,15 +93,13 @@ int keyHandler(int keysym, t_fractal *fract);
 int mouseHandler(int mousekey, t_fractal *fract);
 int juliaTracking(int x, int y, t_fractal *fract);
 int byebye(t_fractal *fract);
-void    init(t_fractal *fract);
 
-void is_mandel(t_complex *z, t_complex *c, t_fractal *fract);
-void printpixel(int a, int b,  t_fractal *fract);
+void    init(t_fractal *fract);
 void render(t_fractal *fract);
 
-double atodouble(char *s);
-double	atodbl(char *s);
-double    scale(double a, double b, double min, double max, double x);
+
+double  atodb(char *s);
+double  scale(double a, double b, double min, double max, double x);
 void error();
 
 t_complex multiply_complex(t_complex z1, t_complex z2);
