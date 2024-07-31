@@ -14,8 +14,7 @@ SRC		= main.c \
 		  init.c \
 		  events.c \
 		  render.c \
-		  math.c \
-		  strtodb.c
+		  math.c
 		  
 OBJ   := $(SRC:.c=.o)
 DEPS  := ${SRC:.c=.d}

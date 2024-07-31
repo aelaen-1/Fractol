@@ -8,19 +8,20 @@ static void    pixel_put(int a, int b, t_image *img, int color)
     *(unsigned int *)(img->pxl_ptr + offset) = color;
 }
 
-static void    is_mandel(t_complex *z, t_complex *c, t_fractal *fract)
-{
-
-    if (!ft_strncmp(fract->name, "mandelbrot", 10))
-    {
-        c->a = z->a; 
-        c->b = z->b;
-    }
-    else
-    {
-        c->a = fract->julia_a; 
-        c->b = fract->julia_b;
-    }
+static void	is_mandel(t_complex *z, t_complex *c, t_fractal *fract)
+{	
+	if (!ft_strncmp(fract->name, "mandelbrot", 10))
+	{
+	
+		c->a = z->a;
+		c->b = z->b;
+	}
+	else
+	{
+		c->a = fract->julia_a;
+		c->b = fract->julia_b;
+		 
+	}
 }
 
 static void    printpixel(int a, int b,  t_fractal *fract)
@@ -41,13 +42,11 @@ static void    printpixel(int a, int b,  t_fractal *fract)
         if((z.a * z.a) + (z.b * z.b) > fract->escape_value)
         {
             color = scale(BLACK, WHITE, 0, fract->iter, i);
-            //mlx_pixel_put(fract->mlx_ptr, fract->mlx_window, a, b, color);
-            pixel_put(a, b, &fract->img, color);
+            pixel_put(a, b, &fract->img, color);//try with mlx_   pixel_put(fract->mlx_ptr, fract->mlx_window, a, b, color)
             return ;
         }
         i++;
     }
-    //mlx_pixel_put(fract->mlx_ptr, fract->mlx_window, a, b, WHITE);
     pixel_put(a, b, &fract->img, WHITE);
 }
 
@@ -55,11 +54,11 @@ void render(t_fractal *fract)
 {
     int a; 
     int b; 
-    
+
     b = 0; 
     while (b < HEIGHT)
     {
-        a = 0;
+    	a = 0; 
         while (a < WIDTH)
         {
             printpixel(a, b, fract);

@@ -14,16 +14,13 @@ int main(int ac, char **av)
 			fract.julia_b = atodb(av[3]);
 		}
 		init(&fract);
-		//mlx_hook(fract.mlx_ptr, KeyPress, KeyPressMask, keyHandler, &fract);
-    	// mlx_hook(fract.mlx_ptr, ButtonPress, ButtonPressMask, mouseHandler, &fract);
-		// mlx_hook(fract.mlx_ptr, ClientMessage, 1L << 17, byebye, &fract);
-    	// mlx_hook(fract->mlx_ptr, MotionNotify, PointerMotionMask, juliaTracking, &fract);*/
-    	// mlx_hook(fract->mlx_ptr, DestroyNotify , StructureNotifyMask, byebye, &fract);
 		render(&fract);
 		mlx_loop(fract.mlx_ptr);
-
 	}
 	else
-		ft_putstr_fd("MALLOC ERROR", STDERR_FILENO);;
+	{
+		ft_putstr_fd("MALLOC ERROR", STDERR_FILENO);
+    		exit(EXIT_FAILURE);
+	}
 	return (0); 
 }

@@ -7,22 +7,16 @@
 
 # define WIDTH 800
 # define HEIGHT 800 //window size
-# define MAX_ITERATIONS 40
 
 # include "./minilibx-linux/mlx.h"
 # include "./libft/libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <math.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdint.h>
-# include <stdlib.h>
-# include <math.h>
-# include <stdbool.h>
-# include <errno.h>
-# include <string.h>
+
 
 # define KEY_ESC 65307
 # define KEY_SHIFT 65505
@@ -74,16 +68,12 @@ typedef struct s_fractal
     char *name; 
     void *mlx_ptr;
     void *mlx_window;
-
-    t_image img; 
-
+    t_image img;
     double shift_a; 
     double shift_b;
     double zoom; 
     double escape_value;
     double iter;
-
-    //if julia
     double julia_a; 
     double julia_b;
 
@@ -93,18 +83,14 @@ int keyHandler(int keysym, t_fractal *fract);
 int mouseHandler(int mousekey, t_fractal *fract);
 int juliaTracking(int x, int y, t_fractal *fract);
 int byebye(t_fractal *fract);
-
 void    init(t_fractal *fract);
+
 void render(t_fractal *fract);
+double	atodb(char *s);
 
-
-double  atodb(char *s);
-double  scale(double a, double b, double min, double max, double x);
-void error();
+double    scale(double a, double b, double min, double max, double x);
 
 t_complex multiply_complex(t_complex z1, t_complex z2);
 t_complex sum_complex(t_complex z1, t_complex z2);
-
-
 
 #endif
