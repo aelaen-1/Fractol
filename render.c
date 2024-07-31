@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-static void pixel_put(int a, int b, t_image *img, int color)
+static void    pixel_put(int a, int b, t_image *img, int color)
 {
     int offset;
 
@@ -8,7 +8,7 @@ static void pixel_put(int a, int b, t_image *img, int color)
     *(unsigned int *)(img->pxl_ptr + offset) = color;
 }
 
-void is_mandel(t_complex *z, t_complex *c, t_fractal *fract)
+static void    is_mandel(t_complex *z, t_complex *c, t_fractal *fract)
 {
 
     if (!ft_strncmp(fract->name, "mandelbrot", 10))
@@ -23,7 +23,7 @@ void is_mandel(t_complex *z, t_complex *c, t_fractal *fract)
     }
 }
 
-void    printpixel(int a, int b,  t_fractal *fract)
+static void    printpixel(int a, int b,  t_fractal *fract)
 {
     t_complex z;
     t_complex c;
