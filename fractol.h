@@ -13,6 +13,7 @@
 # include "./libft/libft.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
+# include <X11/keysymdef.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -24,18 +25,10 @@
 # include <errno.h>
 # include <string.h>
 
-# define KEY_ESC 65307
-# define KEY_SHIFT 65505
-# define KEY_UP 65362
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
-# define KEY_DOWN 65364
-
-# define SCROLL_UP 4
-# define SCROLL_DOWN 5
-# define MOUSE_RIGHT 2
-# define MOUSE_CENTER 3
-# define MOUSE_LEFT 1
+# define ZOOM_IN 4
+# define ZOOM_OUT 5
+# define ITER_PLUS 61
+# define ITER_LESS 45
 
 #define BLACK       0x000000  // RGB(0, 0, 0)
 #define WHITE       0xFFFFFF  // RGB(255, 255, 255)
@@ -90,7 +83,7 @@ typedef struct s_fractal
 } t_fractal;
 
 int keyHandler(int keysym, t_fractal *fract);
-int mouseHandler(int mousekey, t_fractal *fract);
+int mouseHandler(int button, int x, int y, t_fractal *fract);
 int juliaTracking(int x, int y, t_fractal *fract);
 int byebye(t_fractal *fract);
 

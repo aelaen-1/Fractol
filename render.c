@@ -32,8 +32,8 @@ static void    printpixel(int a, int b,  t_fractal *fract)
 
     i = 0;
     color = 0;
-    z.a = scale(-2, +2, 0, WIDTH, a);
-    z.b = scale(-2, +2, 0, HEIGHT, b);
+    z.a = scale(-2, +2, 0, WIDTH, a) * fract->zoom + fract->shift_a;
+    z.b = scale(-2, +2, 0, HEIGHT, b) * fract->zoom + fract->shift_b;
     is_mandel(&z, &c, fract);
     while (i < fract->iter)
     {

@@ -6,33 +6,38 @@ int byebye(t_fractal *fract)
     mlx_destroy_window(fract->mlx_ptr, fract->mlx_window);
     mlx_destroy_display(fract->mlx_ptr);
     free(fract->mlx_ptr);
-    exit(EXIT_FAILURE);
+    exit(EXIT_SUCCESS);
     return (0);
 }
 
 int keyHandler(int key, t_fractal *fract)
 {
-    if (key == KEY_ESC)
-        mlx_destroy_window(fract->mlx_ptr, fract->mlx_window);
-    if (key == KEY_LEFT)
-        fract->shift_a -= 20 / ((fract->zoom) * 0.9);
-    if (key == KEY_RIGHT)
-        fract->shift_a += 20 / ((fract->zoom) * 0.9);
-    if (key == KEY_DOWN)
-        fract->shift_b -= 20 / ((fract->zoom) * 0.9);
-    if (key == KEY_UP)
-        fract->shift_b += 20 / ((fract->zoom) * 0.9);
+    if (key == XK_Escape)
+        byebye(fract);
+    else if (key == XK_Left)
+        fract->shift_a -= (0.5 * fract->zoom);
+    else if (key == XK_Right)
+        fract->shift_a += (0.5 * fract->zoom);
+    else if (key == XK_Down)
+        fract->shift_b -= (0.5 * fract->zoom);
+    else if (key == XK_Up)
+        fract->shift_b += (0.5 * fract->zoom);
+    else if (key == ITER_PLUS)
+		fract->iter += 18;
+	else if (key == ITER_LESS)	
+		fract->iter-= 18;
     render(fract);
     return (0);
 }
 
-int mouseHandler(int mousekey, t_fractal *fract)
+int mouseHandler(int button, int x, int y, t_fractal *fract)
 {
-    if (mousekey == SCROLL_UP)
-        fract->zoom *= 1.05;
-    if (mousekey == SCROLL_DOWN)
-        fract->zoom *= 0.95;
+    if (button == ZOOM_IN)
+        fract->zoom +=0.05;
+    else if (button == ZOOM_OUT)
+        fract->zoom -=0.05;
     render(fract);
+    printf("%d\n", button);
     return (0);
 }
 
