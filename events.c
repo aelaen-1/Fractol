@@ -52,12 +52,12 @@ int	juliaTracking(int x, int y, t_fractal *fract)
 	return (0);
 }
 
-void	zoom(t_fractal *fract, int x, int y, int zoom)
+void	zoom(t_fractal *fract, int x, int y, int button)
 {
 	double	zoom_level;
 
 	zoom_level = 1.42;
-	if (zoom == 1)
+	if (button == ZOOM_IN)
 	{
 		fract->shift_a = (x / fract->zoom + fract->shift_a) - (x
 				/ (fract->zoom * zoom_level));
@@ -65,7 +65,7 @@ void	zoom(t_fractal *fract, int x, int y, int zoom)
 				/ (fract->zoom * zoom_level));
 		fract->zoom *= zoom_level;
 	}
-	else if (zoom == -1)
+	else if (button == ZOOM_OUT)
 	{
 		fract->shift_a = (x / fract->zoom + fract->shift_a) - (x
 				/ (fract->zoom / zoom_level));
@@ -77,12 +77,9 @@ void	zoom(t_fractal *fract, int x, int y, int zoom)
 		return ;
 }
 
-int	mouse_hook(int mouse_code, int x, int y, t_fractal *fract)
+int	mouse_hook(int button, int x, int y, t_fractal *fract)
 {
-	if (mouse_code == ZOOM_IN)
-		zoom(fract, x, y, 1);
-	else if (mouse_code == ZOOM_OUT)
-		zoom(fract, x, y, -1);
-	render(fract);
+	if (button == ZOOM_IN || button == ZOOM_OUT)
+		zoom(fract, x, y, button);
 	return (0);
 }

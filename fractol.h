@@ -101,7 +101,7 @@ t_complex sum_complex(t_complex z1, t_complex z2);
 
 
 void	zoom(t_fractal *fract, int x, int y, int zoom);
-int	mouse_hook(int mouse_code, int x, int y, t_fractal *fract);
+int	mouse_hook(int button, int x, int y, t_fractal *fract);
 
 
 

@@ -9,7 +9,7 @@ void error()
 static void data_init(t_fractal *fract)
 {
     fract->escape_value = 4; 
-    fract->iter = 100;
+    fract->iter = 10;
     fract->shift_a = 0.0;
     fract->shift_b = 0.0;
     fract->zoom = 1.0;
