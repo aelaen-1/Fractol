@@ -30,16 +30,16 @@ int keyHandler(int key, t_fractal *fract)
     return (0);
 }
 
-int mouseHandler(int button, int x, int y, t_fractal *fract)
-{
-    if (button == ZOOM_IN)
-        fract->zoom +=0.05;
-    else if (button == ZOOM_OUT)
-        fract->zoom -=0.05;
-    render(fract);
-    printf("%d\n", button);
-    return (0);
-}
+// int mouseHandler(int button, int x, int y, t_fractal *fract)
+// {
+//     if (button == ZOOM_IN)
+//         fract->zoom +=0.05;
+//     else if (button == ZOOM_OUT)
+//         fract->zoom -=0.05;
+//     render(fract);
+//     printf("%d\n", button);
+//     return (0);
+// }
 
 int	juliaTracking(int x, int y, t_fractal *fract)
 {
@@ -49,5 +49,40 @@ int	juliaTracking(int x, int y, t_fractal *fract)
 		fract->julia_b = (scale(-2, 2, 0, HEIGHT, y) * fract->zoom) + fract->shift_b;
 		render(fract);
 	}
+	return (0);
+}
+
+void	zoom(t_fractal *fract, int x, int y, int zoom)
+{
+	double	zoom_level;
+
+	zoom_level = 1.42;
+	if (zoom == 1)
+	{
+		fract->shift_a = (x / fract->zoom + fract->shift_a) - (x
+				/ (fract->zoom * zoom_level));
+		fract->shift_b = (y / fract->zoom + fract->shift_b) - (y
+				/ (fract->zoom * zoom_level));
+		fract->zoom *= zoom_level;
+	}
+	else if (zoom == -1)
+	{
+		fract->shift_a = (x / fract->zoom + fract->shift_a) - (x
+				/ (fract->zoom / zoom_level));
+		fract->shift_b = (y / fract->zoom + fract->shift_b) - (y
+				/ (fract->zoom / zoom_level));
+		fract->zoom /= zoom_level;
+	}
+	else
+		return ;
+}
+
+int	mouse_hook(int mouse_code, int x, int y, t_fractal *fract)
+{
+	if (mouse_code == ZOOM_IN)
+		zoom(fract, x, y, 1);
+	else if (mouse_code == ZOOM_OUT)
+		zoom(fract, x, y, -1);
+	render(fract);
 	return (0);
 }

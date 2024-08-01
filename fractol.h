@@ -83,7 +83,7 @@ typedef struct s_fractal
 } t_fractal;
 
 int keyHandler(int keysym, t_fractal *fract);
-int mouseHandler(int button, int x, int y, t_fractal *fract);
+//int mouseHandler(int button, int x, int y, t_fractal *fract);
 int juliaTracking(int x, int y, t_fractal *fract);
 int byebye(t_fractal *fract);
 
@@ -97,6 +97,11 @@ void error();
 
 t_complex multiply_complex(t_complex z1, t_complex z2);
 t_complex sum_complex(t_complex z1, t_complex z2);
+
+
+
+void	zoom(t_fractal *fract, int x, int y, int zoom);
+int	mouse_hook(int mouse_code, int x, int y, t_fractal *fract);
 
 
 
