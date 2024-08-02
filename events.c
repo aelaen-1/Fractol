@@ -1,85 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   events.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboukezi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/02 14:38:19 by aboukezi          #+#    #+#             */
+/*   Updated: 2024/08/02 14:38:19 by aboukezi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-int byebye(t_fractal *fract)
+void	zoom(t_fractal *f, int x, int y, int zoom)
 {
-    mlx_destroy_image(fract->mlx_ptr, fract->img.img_ptr);
-    mlx_destroy_window(fract->mlx_ptr, fract->mlx_window);
-    mlx_destroy_display(fract->mlx_ptr);
-    free(fract->mlx_ptr);
-    exit(EXIT_SUCCESS);
-    return (0);
-}
+	double	speed;
 
-int keyHandler(int key, t_fractal *fract)
-{
-    if (key == XK_Escape)
-        byebye(fract);
-    else if (key == XK_Left)
-        fract->shift_a -= (0.5 * fract->zoom);
-    else if (key == XK_Right)
-        fract->shift_a += (0.5 * fract->zoom);
-    else if (key == XK_Down)
-        fract->shift_b -= (0.5 * fract->zoom);
-    else if (key == XK_Up)
-        fract->shift_b += (0.5 * fract->zoom);
-    else if (key == ITER_PLUS)
-		fract->iter += 18;
-	else if (key == ITER_LESS)	
-		fract->iter-= 18;
-    render(fract);
-    return (0);
-}
-
-// int mouseHandler(int button, int x, int y, t_fractal *fract)
-// {
-//     if (button == ZOOM_IN)
-//         fract->zoom +=0.05;
-//     else if (button == ZOOM_OUT)
-//         fract->zoom -=0.05;
-//     render(fract);
-//     printf("%d\n", button);
-//     return (0);
-// }
-
-int	juliaTracking(int x, int y, t_fractal *fract)
-{
-	if (!ft_strncmp(fract->name, "julia", 5))
+	speed = 1.2;
+	if (zoom == 1)
 	{
-		fract->julia_a = (scale(-2, 2, 0, WIDTH, x) * fract->zoom) + fract->shift_a;
-		fract->julia_b = (scale(-2, 2, 0, HEIGHT, y) * fract->zoom) + fract->shift_b;
-		render(fract);
+		f->shift_x = (x / f->zoom + f->shift_x) - (x
+				/ (f->zoom * speed));
+		f->shift_y = (y / f->zoom + f->shift_y) - (y
+				/ (f->zoom * speed));
+		f->zoom *= speed;
 	}
-	return (0);
-}
-
-void	zoom(t_fractal *fract, int x, int y, int button)
-{
-	double	zoom_level;
-
-	zoom_level = 1.42;
-	if (button == ZOOM_IN)
+	else if (zoom == -1)
 	{
-		fract->shift_a = (x / fract->zoom + fract->shift_a) - (x
-				/ (fract->zoom * zoom_level));
-		fract->shift_b = (y / fract->zoom + fract->shift_b) - (y
-				/ (fract->zoom * zoom_level));
-		fract->zoom *= zoom_level;
-	}
-	else if (button == ZOOM_OUT)
-	{
-		fract->shift_a = (x / fract->zoom + fract->shift_a) - (x
-				/ (fract->zoom / zoom_level));
-		fract->shift_b = (y / fract->zoom + fract->shift_b) - (y
-				/ (fract->zoom / zoom_level));
-		fract->zoom /= zoom_level;
+		f->shift_x = (x / f->zoom + f->shift_x) - (x
+				/ (f->zoom / speed));
+		f->shift_y = (y / f->zoom + f->shift_y) - (y
+				/ (f->zoom / speed));
+		f->zoom /= speed;
 	}
 	else
 		return ;
 }
 
-int	mouse_hook(int button, int x, int y, t_fractal *fract)
+int	key_handler(int key, t_fractal *fract)
 {
-	if (button == ZOOM_IN || button == ZOOM_OUT)
-		zoom(fract, x, y, button);
+	if (key == XK_Escape)
+		exit(1);
+	else if (key == XK_Left)
+		fract->shift_x -= 42 / fract->zoom;
+	else if (key == XK_Right)
+		fract->shift_x += 42 / fract->zoom;
+	else if (key == XK_Up)
+		fract->shift_y -= 42 / fract->zoom;
+	else if (key == XK_Down)
+		fract->shift_y += 42 / fract->zoom;
+	else if (key == ITER_PLUS)
+		fract->iter += 10;
+	else if (key == ITER_LESS)
+		fract->iter -= 10;
+	else if (key == C)
+		fract->color += 1000;
+	printf("%d\n", key);
+	render(fract, fract->name);
+	return (0);
+}
+
+int	mouse_handler(int button, int x, int y, t_fractal *fract)
+{
+	if (button == SCROLL_UP)
+		zoom(fract, x, y, 1);
+	else if (button == SCROLL_DOWN)
+		zoom(fract, x, y, -1);
+	render(fract, fract->name);
 	return (0);
 }

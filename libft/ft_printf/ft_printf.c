@@ -60,4 +60,3 @@ int	ft_printf(const char *format, ...)
 	return (print_length);
 }
 /*va_start(va_list, last known parameter)*/
-

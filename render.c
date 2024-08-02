@@ -1,71 +1,84 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aboukezi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/02 14:38:24 by aboukezi          #+#    #+#             */
+/*   Updated: 2024/08/02 14:38:25 by aboukezi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-static void    pixel_put(int a, int b, t_image *img, int color)
+void	drawer(t_fractal *fract, char *name)
 {
-    int offset;
-
-    offset = (b * img->size_line) + (a * (img->bpp / 8));
-    *(unsigned int *)(img->pxl_ptr + offset) = color;
+	fract->x = 0;
+	fract->y = 0;
+	while (fract->x < SIZE)
+	{
+		while (fract->y < SIZE)
+		{
+			if (ft_strncmp(name, "mandel", 7) == 0)
+				mandel(fract);
+			else if (ft_strncmp(name, "julia", 6) == 0)
+				julia(fract);
+			fract->y++;
+		}
+		fract->x++;
+		fract->y = 0;
+	}
 }
 
-static void    is_mandel(t_complex *z, t_complex *c, t_fractal *fract)
+void	mandel(t_fractal *f)
 {
+	int		i;
+	double	x_temp;
 
-    if (!ft_strncmp(fract->name, "mandelbrot", 10))
-    {
-        c->a = z->a; 
-        c->b = z->b;
-    }
-    else
-    {
-        c->a = fract->julia_a; 
-        c->b = fract->julia_b;
-    }
+	i = 0;
+	f->zx = 0.0;
+	f->zy = 0.0;
+	f->cx = (f->x / f->zoom) + f->shift_x;
+	f->cy = (f->y / f->zoom) + f->shift_y;
+	while (++i < f->iter)
+	{
+		x_temp = f->zx * f->zx - f->zy * f->zy
+			+ f->cx;
+		f->zy = 2. * f->zx * f->zy + f->cy;
+		f->zx = x_temp;
+		if (f->zx * f->zx + f->zy
+			* f->zy >= __DBL_MAX__)
+			break ;
+	}
+	if (i == f->iter)
+		pixel_put(f->x, f->y, f, 0x000000);
+	else
+		pixel_put(f->x, f->y, f, (f->color
+				* i));
 }
 
-static void    printpixel(int a, int b,  t_fractal *fract)
+void	julia(t_fractal *f)
 {
-    t_complex z;
-    t_complex c;
-    int i;
-    int color; 
+	int		i;
+	double	tmp;
 
-    i = 0;
-    color = 0;
-    z.a = scale(-2, +2, 0, WIDTH, a) * fract->zoom + fract->shift_a;
-    z.b = scale(-2, +2, 0, HEIGHT, b) * fract->zoom + fract->shift_b;
-    is_mandel(&z, &c, fract);
-    while (i < fract->iter)
-    {
-        z = sum_complex(multiply_complex(z, z), c);
-        if((z.a * z.a) + (z.b * z.b) > fract->escape_value)
-        {
-            color = scale(BLACK, WHITE, 0, fract->iter, i);
-            //mlx_pixel_put(fract->mlx_ptr, fract->mlx_window, a, b, color);
-            pixel_put(a, b, &fract->img, color);
-            return ;
-        }
-        i++;
-    }
-    //mlx_pixel_put(fract->mlx_ptr, fract->mlx_window, a, b, WHITE);
-    pixel_put(a, b, &fract->img, WHITE);
-}
-
-void render(t_fractal *fract)
-{
-    int a; 
-    int b; 
-    
-    b = 0; 
-    while (b < HEIGHT)
-    {
-        a = 0;
-        while (a < WIDTH)
-        {
-            printpixel(a, b, fract);
-            a++;
-        }
-        b++;
-    }
-    mlx_put_image_to_window(fract->mlx_ptr, fract->mlx_window, fract->img.img_ptr, 0, 0);
+	f->zx = f->x / f->zoom + f->shift_x;
+	f->zy = f->y / f->zoom + f->shift_y;
+	i = 0;
+	while (++i < f->iter)
+	{
+		tmp = f->zx;
+		f->zx = f->zx * f->zx - f->zy * f->zy
+			+ f->cx;
+		f->zy = 2 * f->zy * tmp + f->cy;
+		if (f->zx * f->zx + f->zy
+			* f->zy >= __DBL_MAX__)
+			break ;
+	}
+	if (i == f->iter)
+		pixel_put(f->x, f->y, f, 0x000000);
+	else
+		pixel_put(f->x, f->y, f, (f->color * (i
+					% 255)));
 }
