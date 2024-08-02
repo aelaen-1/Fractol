@@ -24,13 +24,11 @@
 # include <stdio.h>
 
 # define SIZE 700
-# define THREAD_WIDTH 7
-# define THREAD_NUMBER 100
 
 // KEYCODES
 # define ITER_PLUS 61
 # define ITER_LESS 45
-# define C 99 //shift color
+# define C 99 
 
 // MOUSECODES
 # define SCROLL_UP 4
