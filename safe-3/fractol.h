@@ -59,6 +59,7 @@ typedef struct s_fractal
 	double	zoom;
 	char	*name;
 	int		iter;
+	enum	type;
 }			t_fractal;
 
 // utils.c
