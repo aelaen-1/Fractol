@@ -32,6 +32,10 @@ void	init(t_fractal *f)
 
 int	render(t_fractal *f, char *name)
 {
+	// if (f->type == MANDEL)
+	// 	draw_mandelbrot(f);
+	// if (f->type == JULIA)
+	// 	draw_julia(f);
 	if (ft_strncmp(name, "mandel", 7) == 0)
 		draw_mandelbrot(f);
 	else if (ft_strncmp(name, "julia", 6) == 0)
