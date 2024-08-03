@@ -37,6 +37,8 @@ void	init(t_fractal *fract)
 
 int	draw_fractal(t_fractal *fract, char *query)
 {
+	if (fract>type == MANDEL)
+		draw_mandelbrot();
 	if (ft_strncmp(query, "mandel", 7) == 0)
 		draw_mandelbrot(fract);
 	else if (ft_strncmp(query, "julia", 6) == 0)
