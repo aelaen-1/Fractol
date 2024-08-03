@@ -34,6 +34,13 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
+
+enum fractal_type type
+{
+	MANDEL, 
+	JULIA
+}
+
 typedef struct s_fractal
 {
 	void	*mlx;
