@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboukezi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aelaen <aelaen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 21:15:35 by aboukezi          #+#    #+#             */
-/*   Updated: 2024/08/02 21:15:36 by aboukezi         ###   ########.fr       */
+/*   Updated: 2025/06/01 03:29:44 by aelaen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ void	init(t_fractal *f)
 
 int	render(t_fractal *f, char *name)
 {
-	// if (f->type == MANDEL)
-	// 	draw_mandelbrot(f);
-	// if (f->type == JULIA)
-	// 	draw_julia(f);
 	if (ft_strncmp(name, "mandel", 7) == 0)
 		draw_mandelbrot(f);
 	else if (ft_strncmp(name, "julia", 6) == 0)

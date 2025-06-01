@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: aboukezi <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/08/02 21:15:27 by aboukezi          #+#    #+#              #
-#    Updated: 2024/08/02 21:15:28 by aboukezi         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME	= fractol
 
 INC=/usr/include
@@ -17,7 +5,6 @@ INCLIB=$(INC)/../lib
 MLX_PATH	= ./minilibx-linux
 MLX_LIB := -L$(MLX_PATH) -lmlx
 
-# Libft
 LIBFT_PATH := libft
 LIBFT_MAKE := $(MAKE) -C $(LIBFT_PATH)
 LIBFT_LIB := -L./libft -lft
